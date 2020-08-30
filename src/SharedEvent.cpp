@@ -14,6 +14,25 @@ TransactionEvent::TransactionEvent(TransactionMessageType type)
     endExclusive = false;
 }
 
+std::ostream& operator<<(std::ostream& s, TransactionEvent message)
+{
+    std::string typeString;
+    switch (message.type)
+    {
+    case TransactionMessageType::TransactionsAdded:
+        typeString = "Added";
+        break;
+    case TransactionMessageType::TransactionsRemoved:
+        typeString = "Removed";
+        break;
+    case TransactionMessageType::TransactionsCleared:
+        typeString = "Cleared";
+        break;
+    }
+    s << "(" << typeString << ") " << (message.startExclusive ? "]" : "[") << message.startDate << ", " << message.endDate << (message.endExclusive ? "[" : "]");
+    return s;
+}
+
 SharedEvent::SharedEvent(const std::string& name, int maximumListeners)
     : m_MaximumListeners(maximumListeners)
 {

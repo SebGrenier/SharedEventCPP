@@ -4,6 +4,7 @@
 #include <vector>
 #include <atomic>
 #include <functional>
+#include <iostream>
 
 
 #include "GlobalMutex.h"
@@ -25,6 +26,8 @@ public:
     bool endExclusive;
 
     TransactionEvent(TransactionMessageType type);
+
+    friend std::ostream& operator << (std::ostream& s, TransactionEvent message);
 };
 
 class SharedEvent
